@@ -9,16 +9,16 @@ pipeline {
     stage('docker build and push') {
       steps {
         sh '''
-        docker build -t yoonhakyoung/cicdtest:1.0 .
-        docker push yoonhakyoung/cicdtest:1.0
+        sudo docker build -t yoonhakyoung/cicdtest:1.0 .
+        sudo docker push yoonhakyoung/cicdtest:1.0
         '''
       }
     }
     stage('deploy kubernetes') {
       steps {
         sh '''
-        kubectl create deployment pl-bulk-prod --image=yoonhakyoung/cicdtest:1.0
-        kubectl expose deployment pl-bulk-prod --type=LoadBalancer --port=80 --target-port=80 --name=pl-bulk-prod-
+        ansible master -m command -a 'kubectl create deployment pl-bulk-prod --image=yoonhakyoung/cicdtest:1.0'
+        ansible master -m command -a 'kubectl expose deployment pl-bulk-prod --type=LoadBalancer --port=80 --target-port=80 --name=pl-bulk-prod-'
         '''
       }
     }
