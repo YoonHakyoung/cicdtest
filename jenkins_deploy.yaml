@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myweb3
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myweb3
+  template:
+    metadata:
+      labels:
+        app: myweb3
+    spec:
+      containers:
+      - name: myweb3
+        image: yoonhakyoung/cicdtest:green
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 80
