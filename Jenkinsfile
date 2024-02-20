@@ -18,7 +18,7 @@ pipeline {
       steps {
         sh '''
         ansible master -m command -a 'kubectl create deployment pl-bulk-prod --image=yoonhakyoung/cicdtest:1.0'
-        ansible master -m command -a 'kubectl expose deployment pl-bulk-prod --type=LoadBalancer --port=80 --target-port=80 --name=pl-bulk-prod-'
+        ansible master -m command -a 'kubectl expose deployment pl-bulk-prod --type=LoadBalancer --port=80 --target-port=80 --name=pl-bulk-prod-svc'
         '''
       }
     }
